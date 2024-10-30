@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "Site_Access" {
 
   enabled             = true
   default_root_object = "index.html"
-
+  aliases             = ["nguyentancaonguyen.com"]
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -36,7 +36,9 @@ resource "aws_cloudfront_distribution" "Site_Access" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = "arn:aws:acm:us-east-1:730335432746:certificate/b30aea3d-eb9b-498b-a7a5-afa5cd26b84e"
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }
 

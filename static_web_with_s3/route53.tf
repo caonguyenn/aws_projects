@@ -1,16 +1,11 @@
-# resource "aws_route53_zone" "main" {
-#   name = "nguyentancaonguyen.com"
-# }
+resource "aws_route53_record" "website" {
+  zone_id = "Z0679184C0DA0F2XUPKB"
+  name    = "nguyentancaonguyen.com"
+  type    = "A"
 
-# # Route 53 Alias Record pointing to the S3 Website Endpoint
-# resource "aws_route53_record" "website_alias" {
-#   zone_id = aws_route53_zone.main.zone_id
-#   name    = "nguyentancaonguyen.com"
-#   type    = "A"
-
-#   alias {
-#     name                   = aws_s3_bucket_website_configuration.example.website_domain
-#     zone_id                = aws_s3_bucket.website.hosted_zone_id
-#     evaluate_target_health = false
-#   }
-# }
+  alias {
+    name                   = aws_cloudfront_distribution.Site_Access.domain_name
+    zone_id                = aws_cloudfront_distribution.Site_Access.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
